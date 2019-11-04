@@ -1,11 +1,15 @@
-const mockUrl: string =
-  'https://myreservations.omnibees.com/default.aspx?q=5462&version=MyReservation&sid=3ad97cf9-d771-4783-8ecf-8b1fd87cb0af#/&diff=false&CheckIn=29112019&CheckOut=02122019&Code=&group_code=&loyality_card=&NRooms=1&ad=1&ch=0&ag=-'
-
+/**
+ * Request params
+ */
 interface SearchOptions {
   checkin: string
   checkout: string
+  source?: string
 }
 
+/**
+ * Request response
+ */
 interface SearchResult {
   name: string
   price: number
@@ -13,18 +17,18 @@ interface SearchResult {
   images: Array<string>
 }
 
+/**
+ * Searching specifically in le canton hotels
+ */
 function searchHotels(searchOptions: SearchOptions): Array<SearchResult> {
-  console.log(mockUrl, searchOptions)
-  // Get Search results
-
-  return [
-    {
-      name: '',
-      price: 0,
-      description: '',
-      images: [''],
-    },
-  ]
+  try {
+    const { scrapper } = require(`./parsers/${searchOptions.source ||
+      'default'}`)
+    return scrapper(searchOptions)
+  } catch (error) {
+    throw new Error('Could not find selected source')
+  }
 }
 
 export default searchHotels
+export { SearchOptions, SearchResult }

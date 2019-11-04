@@ -22,7 +22,7 @@
     "watch": [
       "src"
     ],
-    "exec": "yarn lint && yarn start",
+    "exec": "yarn start",
     "ext": "ts"
   },
   "dependencies": {

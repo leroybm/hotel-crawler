@@ -1,12 +1,6 @@
 # Backend
 
-REST API that recieves a JSON payload as GET, then returns the requested information that will be scapped from an external site via pupeteer
-
-## Rationale
-
-As the Front end will be just a list of news in React/Vue (Plain HTML with JS), dinamically built from the response of this API, the "JAM Stack" concept may be utilized, this is the "A" of JAM.
-
-As the news are usually, well.. new, this API will not use a DB.
+REST API that recieves a JSON payload as POST, then returns the requested information that will be scapped from an external site via pupeteer
 
 ## Todo
 
@@ -21,7 +15,7 @@ As the news are usually, well.. new, this API will not use a DB.
 ### Dev
 
 ```
-yarn dev
+yarn start:watch
 ```
 
 ### Lint
