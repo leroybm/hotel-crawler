@@ -26,6 +26,7 @@ function searchHotels(searchOptions: SearchOptions): Array<SearchResult> {
       'default'}`)
     return scrapper(searchOptions)
   } catch (error) {
+    console.error(error)
     throw new Error('Could not find selected source')
   }
 }

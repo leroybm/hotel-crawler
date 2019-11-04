@@ -1,6 +1,6 @@
 const { scrapper } = require('./lecanton')
 
-console.log('Using default scrapper')
+console.info('Using default scrapper -> Lecanton')
 
 module.exports = {
   scrapper,
