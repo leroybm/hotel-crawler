@@ -4,12 +4,11 @@
   "description": "Test for mind the graph - backend",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -e js -x node src/index.js",
     "start": "node --inspect=5858 -r ts-node/register ./src/server.ts",
     "start:watch": "nodemon",
     "build": "tsc",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix"
   },
   "author": "Leroy",
   "license": "ISC",
@@ -23,7 +22,7 @@
     "watch": [
       "src"
     ],
-    "exec": "yarn start",
+    "exec": "yarn lint && yarn start",
     "ext": "ts"
   },
   "dependencies": {
@@ -33,6 +32,8 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.5",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",

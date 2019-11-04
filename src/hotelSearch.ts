@@ -14,7 +14,7 @@ interface SearchResult {
 }
 
 function searchHotels(searchOptions: SearchOptions): Array<SearchResult> {
-  console.log(searchOptions)
+  console.log(mockUrl, searchOptions)
   // Get Search results
 
   return [
