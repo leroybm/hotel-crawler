@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --inspect=5858 -r ts-node/register ./src/server.ts",
+    "start:dev": "node --inspect=5858 -r ts-node/register -r dotenv/config ./src/server.ts",
     "start:watch": "nodemon",
     "build": "tsc",
     "lint": "eslint src --ext .ts",
@@ -22,7 +23,7 @@
     "watch": [
       "src"
     ],
-    "exec": "yarn start",
+    "exec": "yarn start:dev",
     "ext": "ts"
   },
   "dependencies": {
@@ -34,6 +35,7 @@
     "@types/node": "^12.12.5",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
+    "dotenv": "^8.2.0",
     "eslint": "^6.6.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",

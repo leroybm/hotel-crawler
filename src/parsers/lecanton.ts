@@ -1,5 +1,5 @@
 import { SearchOptions, SearchResult } from '../hotelSearch'
-import { scrap } from '../utils/scrapper'
+import { scrap, ScrapeElementsArg } from '../utils/scrapper'
 
 /**
  * On a real product the following constants would be
@@ -15,12 +15,19 @@ const urlTemplate: string =
 /**
  * Selectors for the lecanton search scrapping
  */
-const selectors = {
-  parent: '.roomExcerpt',
+const selectors: { [type: string]: string } = {
   name: '.excerpt h5',
   price: 'h6.bestPriceTextColor',
   description: '.excerpt .description',
   images: '.thumb img',
+}
+
+const parentSelector: string = '.roomExcerpt'
+
+const controlSelector: string = `${parentSelector} ${selectors.price}:not(:empty)`
+
+const contentBySelectorType: { [type: string]: string } = {
+  description: 'innerText',
 }
 
 /**
@@ -40,6 +47,38 @@ function buildUrl(template: string, checkin: string, checkout: string): string {
 }
 
 /**
+ * Scrapes over each element parentSelector, using the selectors as data sources
+ * Uses contentAcessorByType to know where the data is in each element
+ * Must be pure, as it's run in the browser
+ */
+function scrapperFunction(faucetFromPupetter: ScrapeElementsArg) {
+  const { selectors, parentSelector, contentAcessorByType } = faucetFromPupetter
+  const parentElements = document.querySelectorAll(parentSelector)
+
+  return Array.from(parentElements).map(parentElement => {
+    return Object.entries(selectors).reduce((content, [type, selector]) => {
+      const elements = parentElement.querySelectorAll(selector)
+      if (!elements.length) {
+        return content
+      }
+
+      content[type] = Array.from(elements).map(element => {
+        const nodeAcessor: string =
+          contentAcessorByType[type] ||
+          contentAcessorByType[element.nodeName] ||
+          'innerText'
+        return element[nodeAcessor]
+      })
+
+      content[type] =
+        content[type].length === 1 ? content[type][0] : content[type]
+
+      return content
+    }, {})
+  })
+}
+
+/**
  * Scrapper for lecanton
  */
 async function scrapper(
@@ -48,10 +87,16 @@ async function scrapper(
   const { checkin, checkout } = searchOptions
   const url = buildUrl(urlTemplate, checkin, checkout)
 
-  return await scrap({
-    url,
-    selectors,
-  })
+  return await scrap(
+    {
+      url,
+      selectors,
+      parentSelector,
+      controlSelector,
+      contentBySelectorType,
+    },
+    scrapperFunction,
+  )
 }
 
 module.exports = {
