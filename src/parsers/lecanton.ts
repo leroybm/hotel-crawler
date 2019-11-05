@@ -21,20 +21,25 @@ const parentSelector: string = '.roomExcerpt'
 const controlSelector: string = `${parentSelector} ${selectors.price}:not(:empty)`
 
 const contentBySelectorType: { [type: string]: string } = {
-  description: 'innerText',
+  description: 'textContent',
 }
 
 /**
  * Parses input date to be used in queryParams
  */
 function parseDate(date: string): string {
-  return date.replace(/\//g, '')
+  const parsedDate = (date && date.replace(/\//g, '')) || ''
+  return (parsedDate.length === 8 && parsedDate) || ''
 }
 
 /**
  * Build url to scrape based on a template
  */
 function buildUrl(template: string, checkin: string, checkout: string): string {
+  if (typeof checkin !== 'string' || typeof checkout !== 'string') {
+    return ''
+  }
+
   return template
     .replace(/\$checkin/, parseDate(checkin))
     .replace(/\$checkout/, parseDate(checkout))
@@ -43,7 +48,7 @@ function buildUrl(template: string, checkin: string, checkout: string): string {
 /**
  * Scrapes over each element parentSelector, using the selectors as data sources
  * Uses contentAcessorByType to know where the data is in each element
- * Must be pure, as it's run in the browser
+ * Must be 'pure' (using only browser api as source), as it's run in the browser
  */
 function scrapperFunction(faucetFromPupetter: ScrapeElementsArg) {
   const { selectors, parentSelector, contentAcessorByType } = faucetFromPupetter
@@ -60,7 +65,7 @@ function scrapperFunction(faucetFromPupetter: ScrapeElementsArg) {
         const nodeAcessor: string =
           contentAcessorByType[type] ||
           contentAcessorByType[element.nodeName] ||
-          'innerText'
+          'textContent'
         return element[nodeAcessor]
       })
 
@@ -79,7 +84,11 @@ async function scrapper(
   searchOptions: SearchOptions,
 ): Promise<Array<SearchResult>> {
   const { checkin, checkout } = searchOptions
+  if (!checkin || !checkout)
+    throw new Error('Checkin and checkout must be filled')
+
   const url = buildUrl(urlTemplate, checkin, checkout)
+  if (!url) throw new Error('Date format incorrect')
 
   return await scrap(
     {
@@ -95,4 +104,7 @@ async function scrapper(
 
 module.exports = {
   scrapper,
+  parseDate,
+  buildUrl,
+  scrapperFunction,
 }

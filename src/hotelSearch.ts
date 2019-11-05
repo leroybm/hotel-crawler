@@ -27,7 +27,9 @@ function isValidSource(source: string): boolean {
 /**
  * Searching specifically in le canton hotels
  */
-function searchHotels(searchOptions: SearchOptions): Array<SearchResult> {
+async function searchHotels(
+  searchOptions: SearchOptions,
+): Promise<Array<SearchResult>> {
   try {
     const { scrapper } = require(`./parsers/${(isValidSource(
       searchOptions.source,
@@ -36,8 +38,7 @@ function searchHotels(searchOptions: SearchOptions): Array<SearchResult> {
       'default'}`)
     return scrapper(searchOptions)
   } catch (error) {
-    console.error(error)
-    throw new Error('Could not find selected source')
+    throw new Error('Invalid source')
   }
 }
 
