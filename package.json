@@ -1,8 +1,7 @@
 {
-  "name": "mind-the-news-backend",
+  "name": "hotel-crawler",
   "version": "0.0.1",
-  "description": "Test for mind the graph - backend",
-  "main": "index.js",
+  "description": "Hotel Crawler",
   "scripts": {
     "start": "node --inspect=5858 ./dist/server.js",
     "start:dev": "node --inspect=5858 -r ts-node/register -r dotenv/config ./src/server.ts",
@@ -40,6 +39,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.21",
     "@types/node": "^12.12.5",
+    "@types/puppeteer": "^1.20.2",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
     "dotenv": "^8.2.0",
@@ -54,6 +54,7 @@
     "nodemon": "^1.19.4",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "waait": "^1.0.5"
   }
 }

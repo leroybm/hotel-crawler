@@ -1,4 +1,5 @@
 import { SearchResult } from '../hotelSearch'
+import { Page, Browser } from 'puppeteer'
 
 const puppeteer = require('puppeteer')
 
@@ -36,7 +37,7 @@ const CONTENT_ACESSOR_BY_NODE_TYPE: object = {
 /**
  * Gets a running instance of pupeteer's chromium at given url
  */
-async function getPage(url: string): Promise<{ page: any; browser: any }> {
+async function getPage(url: string): Promise<{ page: Page; browser: Browser }> {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   })
@@ -49,9 +50,9 @@ async function getPage(url: string): Promise<{ page: any; browser: any }> {
  * Execute script on page as soon as parent selector is available
  */
 async function executeScriptOnPage(
-  page: any,
+  page: Page,
   options: ScrapperOptions,
-  script: Function,
+  script: Function | string | any,
 ): Promise<Array<SearchResult>> {
   const controlSelector =
     options.controlSelector || options.parentSelector || 'html'
@@ -59,6 +60,7 @@ async function executeScriptOnPage(
   await page.waitForSelector(controlSelector, {
     timeout: options.timeout || DEFAULT_TIMEOUT,
   })
+
   return await page.evaluate(script, {
     selectors: options.selectors,
     parentSelector: options.parentSelector || '',
