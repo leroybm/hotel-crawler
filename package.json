@@ -4,7 +4,7 @@
   "description": "Test for mind the graph - backend",
   "main": "index.js",
   "scripts": {
-    "start": "node --inspect=5858 -r ts-node/register ./src/server.ts",
+    "start": "node --inspect=5858 ./dist/server.js",
     "start:dev": "node --inspect=5858 -r ts-node/register -r dotenv/config ./src/server.ts",
     "start:watch": "nodemon",
     "build": "tsc",
@@ -15,6 +15,10 @@
   },
   "author": "Leroy",
   "license": "ISC",
+  "engines": {
+    "node": "8.16.x",
+    "yarn": "1.19.x"
+  },
   "nodemonConfig": {
     "ignore": [
       "**/*.test.ts",
