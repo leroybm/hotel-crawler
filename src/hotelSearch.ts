@@ -18,11 +18,21 @@ interface SearchResult {
 }
 
 /**
+ * Verifies if it's a valid source
+ */
+function isValidSource(source: string): boolean {
+  return /^[a-zA-Z0-9-]+$/g.test(source)
+}
+
+/**
  * Searching specifically in le canton hotels
  */
 function searchHotels(searchOptions: SearchOptions): Array<SearchResult> {
   try {
-    const { scrapper } = require(`./parsers/${searchOptions.source ||
+    const { scrapper } = require(`./parsers/${(isValidSource(
+      searchOptions.source,
+    ) &&
+      searchOptions.source) ||
       'default'}`)
     return scrapper(searchOptions)
   } catch (error) {

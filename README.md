@@ -4,11 +4,11 @@ REST API that recieves a JSON payload as POST, then returns the requested inform
 
 ## Todo
 
-- Automatization
-- Docker
 - Tests
-- GraphQL
-- Cache
+- Security
+- Schema
+- Common node security flaws
+- Docker
 
 ## Instructions
 

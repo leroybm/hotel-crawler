@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer')
 
 interface ScrapperOptions {
   url: string
-  selectors: object
+  selectors: Selectors
   parentSelector?: string
   controlSelector?: string
   timeout?: number
@@ -49,7 +49,7 @@ async function getPage(url: string): Promise<{ page: any; browser: any }> {
  * Execute script on page as soon as parent selector is available
  */
 async function executeScriptOnPage(
-  page: any, // ???
+  page: any,
   options: ScrapperOptions,
   script: Function,
 ): Promise<Array<SearchResult>> {

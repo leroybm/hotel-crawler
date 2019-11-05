@@ -6,15 +6,9 @@ import { scrap, ScrapeElementsArg } from '../utils/scrapper'
  * available through a configuration API
  */
 
-/**
- * Url template for lecanton search
- */
 const urlTemplate: string =
   'https://myreservations.omnibees.com/default.aspx?q=5462&version=MyReservation&sid=3ad97cf9-d771-4783-8ecf-8b1fd87cb0af#/&diff=false&CheckIn=$checkin&CheckOut=$checkout&Code=&group_code=&loyality_card=&NRooms=1&ad=1&ch=0&ag=-'
 
-/**
- * Selectors for the lecanton search scrapping
- */
 const selectors: { [type: string]: string } = {
   name: '.excerpt h5',
   price: 'h6.bestPriceTextColor',
