@@ -4,21 +4,31 @@ import { Page, Browser } from 'puppeteer'
 const puppeteer = require('puppeteer')
 
 export interface ScrapperOptions {
+  /** Url to be crawled */
   url: string
+  /** Selectors that will be scrapped for data */
   selectors: Selectors
+  /** Parent selector for each element that will have it's selectors scrapped for data */
   parentSelector?: string
+  /** Scrapper will wait for this selector to return something to scrape all data */
   controlSelector?: string
+  /** Timeout for the whole scrapping process */
   timeout?: number
+  /** Map of a type of selector to the getter of the selector's data. Property must match `selectors` property */
   contentBySelectorType?: object
 }
 
 export interface Selectors {
+  /** Selector for data to be scrapped, will be mapped to the result */
   [type: string]: string
 }
 
 export interface ScrapeElementsArg {
+  /** Object of Selectors */
   selectors: Selectors
+  /** Parent selector for each element that will have it's selectors scrapped for data */
   parentSelector: string
+  /** Map of a type of selector to the getter of the selector's data. Property must be a `selectors` property or nodeName */
   contentAcessorByType: object
 }
 
@@ -85,4 +95,4 @@ async function scrap(options: ScrapperOptions, scrapperFunction: Function) {
   return result
 }
 
-module.exports = {scrap}
+module.exports = { scrap }
