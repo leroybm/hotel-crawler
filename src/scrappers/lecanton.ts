@@ -45,8 +45,10 @@ function normalizeData(result: any): SearchResult {
       .replace('R$ ', '')
       .replace(',', '.'),
   )
-  result.price = (!Number.isNaN(parsedNumber) && parsedNumber) || result.price
-  return result
+  return {
+    ...result,
+    price: (!Number.isNaN(parsedNumber) && parsedNumber) || result.price,
+  }
 }
 
 /**

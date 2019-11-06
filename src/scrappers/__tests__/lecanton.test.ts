@@ -7,7 +7,7 @@ const {
   normalizeData,
 } = require('../lecanton')
 
-describe('Lecanton Parser - normalizeData()', () => {
+describe('Lecanton Scrapper - normalizeData()', () => {
   const mockResult: { [key: string]: string } = {
     price: 'R$ 123,45',
   }
@@ -28,7 +28,7 @@ describe('Lecanton Parser - normalizeData()', () => {
   })
 })
 
-describe('Lecanton Parser - parseDate()', () => {
+describe('Lecanton Scrapper - parseDate()', () => {
   it('returns a date in numbers only', () => {
     expect(parseDate('12/34/5678')).toBe('12345678')
     expect(parseDate('12345678')).toBe('12345678')
@@ -44,7 +44,7 @@ describe('Lecanton Parser - parseDate()', () => {
   })
 })
 
-describe('Lecanton Parser - buildUrl()', () => {
+describe('Lecanton Scrapper - buildUrl()', () => {
   let url: string
 
   beforeEach(() => {
@@ -63,7 +63,7 @@ describe('Lecanton Parser - buildUrl()', () => {
   })
 })
 
-describe('Lecanton Parser - scrapperFunction()', () => {
+describe('Lecanton Scrapper - scrapperFunction()', () => {
   let faucet = {
     selectors: {
       price: '.price',
@@ -190,7 +190,7 @@ describe('Lecanton Parser - scrapperFunction()', () => {
   })
 })
 
-describe('Lecanton Parser - scrapper()', () => {
+describe('Lecanton Scrapper - scrapper()', () => {
   it("should throw if there's no checkin or checkout", async () => {
     await expect(scrapper({})).rejects.toThrowError()
   })

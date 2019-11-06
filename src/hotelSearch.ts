@@ -1,3 +1,7 @@
+import { Request, Response } from 'express'
+
+const { catchErrors } = require('./utils/errors')
+
 /**
  * Request params
  */
@@ -31,15 +35,26 @@ async function searchHotels(
   searchOptions: SearchOptions,
 ): Promise<Array<SearchResult>> {
   try {
-    const { scrapper } = require(`./parsers/${(isValidSource(
-      searchOptions.source,
-    ) &&
-      searchOptions.source) ||
-      'default'}`)
+    const scrapperModule =
+      (isValidSource(searchOptions.source) && searchOptions.source) || 'default'
+    const { scrapper } = require(`./scrappers/${scrapperModule}`)
     return scrapper(searchOptions)
   } catch (error) {
     throw new Error('Invalid source')
   }
 }
 
-module.exports = searchHotels
+/**
+ * Handles the search request
+ */
+const handleSearchRequest = catchErrors(async (req: Request, res: Response) => {
+  if (!req.body) throw new Error('Empty Body')
+  const result: Array<object> = await searchHotels(req.body)
+  res.send(result)
+})
+
+module.exports = {
+  handleSearchRequest,
+  searchHotels,
+  isValidSource,
+}
