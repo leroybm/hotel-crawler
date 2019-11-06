@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-import searchHotels from './hotelSearch'
+const searchHotels = require('./hotelSearch')
 
 const app = express()
 const port = process.env.PORT || 4000

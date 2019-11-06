@@ -15,8 +15,7 @@
   "author": "Leroy",
   "license": "ISC",
   "engines": {
-    "node": "8.16.x",
-    "yarn": "1.19.x"
+    "node": ">=8.10.0"
   },
   "nodemonConfig": {
     "ignore": [

@@ -1,5 +1,7 @@
 import { SearchOptions, SearchResult } from '../hotelSearch'
-import { scrap, ScrapeElementsArg } from '../utils/scrapper'
+import { ScrapeElementsArg } from '../utils/scrapper'
+
+const { scrap } = require('../utils/scrapper')
 
 /**
  * On a real product the following constants would be

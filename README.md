@@ -36,6 +36,10 @@ This application is multi-tenant, you can create a new parser inside the parsers
 
 To enable more verbose logs you can copy the `.env.example` file, removing the `.example`, this will run the application in the development mode by default.
 
+#### About the module systems
+
+This project uses TypeScript and node, both have different ways to handle modules. For code import/export you should use require/module.exports and for typescript types and interfaces you should use import/export
+
 ### Manual test
 
 **You must change the checkin and checkout date, and the server url, if this isn't working**
@@ -44,11 +48,11 @@ You can quickly try it with postwoman
 
 https://bit.ly/2qrAKti (Sorry for the shortened link, you have to trust me in this one)
 
-you can manually test via curl with
+if you're feeling sassy you can manually test via curl with
 
 ```bash
 curl -X POST \
-  https://localhost:4000/buscar \
+  https://leroy-hotel-scrapper.herokuapp.com/buscar \
   -H 'Accept: */*' \
   -H 'Accept-Encoding: gzip, deflate' \
   -H 'Cache-Control: no-cache' \
@@ -65,7 +69,7 @@ curl -X POST \
 }'
 ```
 
-or running it in a browser console with
+or run it in a browser console with
 
 ```javascript
 var data = JSON.stringify({
@@ -82,7 +86,7 @@ xhr.addEventListener('readystatechange', function() {
   }
 })
 
-xhr.open('POST', 'https://localhost:4000/buscar')
+xhr.open('POST', 'https://leroy-hotel-scrapper.herokuapp.com/buscar')
 xhr.setRequestHeader('Content-Type', 'application/json')
 xhr.setRequestHeader('User-Agent', 'PostmanRuntime/7.19.0')
 xhr.setRequestHeader('Accept', '*/*')

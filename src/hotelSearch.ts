@@ -1,7 +1,7 @@
 /**
  * Request params
  */
-interface SearchOptions {
+export interface SearchOptions {
   checkin: string
   checkout: string
   source?: string
@@ -10,7 +10,7 @@ interface SearchOptions {
 /**
  * Request response
  */
-interface SearchResult {
+export interface SearchResult {
   name: string
   price: number
   description: string
@@ -42,5 +42,4 @@ async function searchHotels(
   }
 }
 
-export default searchHotels
-export { SearchOptions, SearchResult }
+module.exports = searchHotels

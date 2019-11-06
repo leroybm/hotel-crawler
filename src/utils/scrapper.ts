@@ -3,7 +3,7 @@ import { Page, Browser } from 'puppeteer'
 
 const puppeteer = require('puppeteer')
 
-interface ScrapperOptions {
+export interface ScrapperOptions {
   url: string
   selectors: Selectors
   parentSelector?: string
@@ -12,11 +12,11 @@ interface ScrapperOptions {
   contentBySelectorType?: object
 }
 
-interface Selectors {
+export interface Selectors {
   [type: string]: string
 }
 
-interface ScrapeElementsArg {
+export interface ScrapeElementsArg {
   selectors: Selectors
   parentSelector: string
   contentAcessorByType: object
@@ -85,5 +85,4 @@ async function scrap(options: ScrapperOptions, scrapperFunction: Function) {
   return result
 }
 
-export { scrap }
-export { ScrapeElementsArg, ScrapperOptions }
+module.exports = {scrap}
