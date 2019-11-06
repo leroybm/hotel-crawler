@@ -1,11 +1,6 @@
 const { JSDOM } = require('jsdom')
-const {
-  parseDate,
-  buildUrl,
-  scrapperFunction,
-  scrapper,
-  normalizeData,
-} = require('../lecanton')
+const { scrapperFunction, scrapper } = require('./index')
+const { parseDate, buildUrl, normalizeData } = require('./utils')
 
 describe('Lecanton Scrapper - normalizeData()', () => {
   const mockResult: { [key: string]: string } = {

@@ -37,7 +37,7 @@ async function searchHotels(
   try {
     const scrapperModule =
       (isValidSource(searchOptions.source) && searchOptions.source) || 'default'
-    const { scrapper } = require(`./scrappers/${scrapperModule}`)
+    const { scrapper } = require(`./scrappers/${scrapperModule}/index`)
     return scrapper(searchOptions)
   } catch (error) {
     throw new Error('Invalid source')
