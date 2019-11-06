@@ -37,6 +37,19 @@ const contentBySelectorType: { [type: string]: string } = {
 }
 
 /**
+ * Normalizes result data
+ */
+function normalizeData(result: any): SearchResult {
+  const parsedNumber = parseFloat(
+    String(result.price)
+      .replace('R$ ', '')
+      .replace(',', '.'),
+  )
+  result.price = (!Number.isNaN(parsedNumber) && parsedNumber) || result.price
+  return result
+}
+
+/**
  * Parses input date to be used in queryParams
  */
 function parseDate(date: string): string {
@@ -111,7 +124,7 @@ async function scrapper(
       contentBySelectorType,
     },
     scrapperFunction,
-  )
+  ).then(result => result.map(normalizeData))
 }
 
 module.exports = {
@@ -119,4 +132,5 @@ module.exports = {
   parseDate,
   buildUrl,
   scrapperFunction,
+  normalizeData,
 }

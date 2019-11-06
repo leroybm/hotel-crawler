@@ -4,7 +4,29 @@ const {
   buildUrl,
   scrapperFunction,
   scrapper,
+  normalizeData,
 } = require('../lecanton')
+
+describe('Lecanton Parser - normalizeData()', () => {
+  const mockResult: { [key: string]: string } = {
+    price: 'R$ 123,45',
+  }
+
+  it('should parse a number from a price string', () => {
+    expect(normalizeData(mockResult)).toEqual({ price: 123.45 })
+  })
+
+  it('should not change anything string is invalid', () => {
+    mockResult.price = 'invalid 123,45'
+    expect(normalizeData(mockResult)).toEqual(mockResult)
+  })
+
+  it('should not modify any other property from result', () => {
+    mockResult.name = 'name'
+    mockResult.description = 'description'
+    expect(normalizeData(mockResult)).toEqual(mockResult)
+  })
+})
 
 describe('Lecanton Parser - parseDate()', () => {
   it('returns a date in numbers only', () => {
