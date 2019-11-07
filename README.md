@@ -2,6 +2,15 @@
 
 REST API that recieves a JSON payload as POST, then returns the requested information that will be scapped from an external site via pupeteer
 
+You can see it live on [heroku](https://leroy-hotel-scrapper.herokuapp.com/), just POST a JSON as the following, to `/buscar`
+
+```json
+{
+  "checkin": "29/11/2019",
+  "checkout": "02/12/2019"
+}
+```
+
 ## Instructions
 
 ### Setup
