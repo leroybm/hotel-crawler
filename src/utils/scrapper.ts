@@ -1,5 +1,4 @@
-import { SearchResult } from '../hotelSearch'
-import { Page, Browser } from 'puppeteer'
+import { Page, Browser, EvaluateFnReturnType } from 'puppeteer'
 
 const puppeteer = require('puppeteer')
 
@@ -62,8 +61,14 @@ async function getPage(url: string): Promise<{ page: Page; browser: Browser }> {
 async function executeScriptOnPage(
   page: Page,
   options: ScrapperOptions,
-  script: Function | string | any,
-): Promise<Array<SearchResult>> {
+  script: EvaluateFnReturnType<any>,
+): Promise<any> {
+  if (
+    !(typeof options.url === 'string' && typeof options.selectors === 'object')
+  ) {
+    throw new Error('Options has incomplete set of required properties')
+  }
+
   const controlSelector =
     options.controlSelector || options.parentSelector || 'html'
 
@@ -95,4 +100,10 @@ async function scrap(options: ScrapperOptions, scrapperFunction: Function) {
   return result
 }
 
-module.exports = { scrap }
+module.exports = {
+  scrap,
+  executeScriptOnPage,
+  getPage,
+  CONTENT_ACESSOR_BY_NODE_TYPE,
+  DEFAULT_TIMEOUT,
+}
